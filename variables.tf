@@ -1,5 +1,5 @@
 variable "aws_account_id" {
-  default = "902107193506"
+  default = "047185742847"
 }
 
 variable "aws_region" {
@@ -7,16 +7,16 @@ variable "aws_region" {
 }
 
 variable "vpc_id" {
-  default = "vpc-05035bf257cf152ce"
+  default = "vpc-0b94fc919b13cd7d5"
 }
 
 variable "subnets" {
   type = list(string)
   default = [
-    "subnet-0bf4b2a7917b38ae8",
-    "subnet-0958e1e512b95af14",
-    "subnet-0914e9eee28e4b50e",
-    "subnet-057f5b4a52ce48fc5"
+    "subnet-085fd497b8ba7763e",
+    "subnet-063e2fd96f82277f6",
+    "subnet-03ea0e65a0df8bcce",
+    "subnet-0e169b1073b434ad9"
   ]
 }
 

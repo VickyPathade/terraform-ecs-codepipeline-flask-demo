@@ -7,7 +7,7 @@ resource "aws_codepipeline" "codepipeline" {
     type     = "S3"
 
     encryption_key {
-      id   = data.aws_kms_alias.s3kmskey.arn
+      id   = aws_kms_alias.s3kmskey.target_key_id
       type = "KMS"
     }
   }
@@ -56,12 +56,7 @@ resource "aws_codestarconnections_connection" "example" {
 }
 
 resource "aws_s3_bucket" "codepipeline_bucket" {
-  bucket = "flask-demo-codepipeline-bucket"
-}
-
-resource "aws_s3_bucket_acl" "codepipeline_bucket_acl" {
-  bucket = aws_s3_bucket.codepipeline_bucket.id
-  acl    = "private"
+  bucket = "flask-demo-codepipeline-bucket12111"
 }
 
 resource "aws_iam_role" "codepipeline_role" {
@@ -270,6 +265,14 @@ resource "aws_iam_role_policy" "codebuild_policy" {
 EOF
 }
 
-data "aws_kms_alias" "s3kmskey" {
-  name = "alias/flask_app_s3kmskey"
+# Create a KMS key
+resource "aws_kms_key" "flask_app_kms_key" {
+  description             = "KMS key for Flask App"
+  deletion_window_in_days = 10
+}
+
+# Create an alias for the KMS key
+resource "aws_kms_alias" "s3kmskey" {
+  name          = "alias/flask_app_s3kmskey"
+  target_key_id = aws_kms_key.flask_app_kms_key.key_id
 }
